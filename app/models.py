@@ -43,4 +43,4 @@ class MasterclassInstance(db.Model):
 class MasterclassAttendee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     attendee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    masterclass_id = db.Column(db.Integer, db.ForeignKey('masterclass.id'))
+    masterclass_instance_id = db.Column(db.Integer, db.ForeignKey('masterclassinstance.id'))
