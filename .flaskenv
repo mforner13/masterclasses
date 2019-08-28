@@ -1,1 +1,1 @@
-FLASK_APP=masterclasess.py
+FLASK_APP=masterclasses.py
