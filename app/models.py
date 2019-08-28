@@ -7,19 +7,18 @@ class User(db.Model):   # User inherits from db.Model, a base class for all mode
     first_name = db.Column(db.String(50), index=True, unique=False) # Do I need to say when something shouldn't be unique? Or just leave it?
     last_name = db.Column(db.String(50), index=True, unique=False)
     password_hash = db.Column(db.String(128))
-    masterclasses = db.relationship('MasterclassInstance', backref='instructor', lazy='dynamic')
+    masterclasses_run = db.relationship('Masterclass', backref='instructor', lazy='dynamic')
     booked_masterclasses = db.relationship('MasterclassAttendee', backref='attendee', lazy='dynamic')
 
     def __repr__(self):
         return '<User {} {}>'.format(self.first_name, self.last_name)
 
 
-class Masterclass(db.Model):
+class MasterclassContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(500))
-    timestamp = db.Column(db.DateTime, index=True)
-    masterclass_instances = db.relationship('MasterclassInstance', backref='location', lazy='dynamic')
+    masterclass_instances = db.relationship('Masterclass', backref='location', lazy='dynamic')
 
 
 class Location(db.Model):
@@ -29,13 +28,13 @@ class Location(db.Model):
     street_name = db.Column(db.String(100), index=True)
     town_or_city = db.Column(db.String(50), index=True)
     postcode = db.Column(db.String(8), index=True)  # A postcode in the UK can't have more than 8 characters inc. space
-    masterclass_instances = db.relationship('MasterclassInstance', backref='location', lazy='dynamic')
+    masterclasses = db.relationship('Masterclass', backref='location', lazy='dynamic')
 
 
-class MasterclassInstance(db.Model):
+class Masterclass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, index=True)
-    masterclass_id = db.Column(db.Integer, db.ForeignKey('masterclass.id'))
+    masterclass_id = db.Column(db.Integer, db.ForeignKey('masterclass_content.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     #  How do I represent attendees - many to many relationship
@@ -43,4 +42,4 @@ class MasterclassInstance(db.Model):
 class MasterclassAttendee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     attendee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    masterclass_instance_id = db.Column(db.Integer, db.ForeignKey('masterclassinstance.id'))
+    masterclass_id = db.Column(db.Integer, db.ForeignKey('masterclass.id'))
