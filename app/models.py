@@ -1,24 +1,35 @@
-from app import db
+from app import db, login
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
-class User(db.Model):   # User inherits from db.Model, a base class for all models from Flask-sqlalchemy
+class User(UserMixin, db.Model):   # User inherits from db.Model, a base class for all models from Flask-sqlalchemy
     id = db.Column(db.Integer, primary_key=True)    # Fields are created as instances of the Column class, they take the field type as an argument
     email = db.Column(db.String(120), index=True, unique=True)  # By indexing a value you can find it more easily in the db
-    first_name = db.Column(db.String(50), index=True, unique=False) # Do I need to say when something shouldn't be unique? Or just leave it?
+    first_name = db.Column(db.String(50), index=True, unique=False)
     last_name = db.Column(db.String(50), index=True, unique=False)
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(128), nullable=False)
     masterclasses_run = db.relationship('Masterclass', backref='instructor', lazy='dynamic')
     booked_masterclasses = db.relationship('MasterclassAttendee', backref='attendee', lazy='dynamic')
 
     def __repr__(self):
         return '<User {} {}>'.format(self.first_name, self.last_name)
 
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @login.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
 class MasterclassContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(500))
-    masterclass_instances = db.relationship('Masterclass', backref='location', lazy='dynamic')
+    masterclass_instances = db.relationship('Masterclass', backref='content', lazy='dynamic')
 
 
 class Location(db.Model):
@@ -34,10 +45,10 @@ class Location(db.Model):
 class Masterclass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, index=True)
-    masterclass_id = db.Column(db.Integer, db.ForeignKey('masterclass_content.id'))
+    masterclass_content_id = db.Column(db.Integer, db.ForeignKey('masterclass_content.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    #  How do I represent attendees - many to many relationship
+
 
 class MasterclassAttendee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
