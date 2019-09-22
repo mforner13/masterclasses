@@ -5,7 +5,7 @@ from flask_login import UserMixin
 
 class User(UserMixin, db.Model):   # User inherits from db.Model, a base class for all models from Flask-sqlalchemy
     id = db.Column(db.Integer, primary_key=True)    # Fields are created as instances of the Column class, they take the field type as an argument
-    email = db.Column(db.String(120), index=True, unique=True)  # By indexing a value you can find it more easily in the db
+    email = db.Column(db.String(120), nullable=False, index=True, unique=True)  # By indexing a value you can find it more easily in the db
     first_name = db.Column(db.String(50), index=True, unique=False)
     last_name = db.Column(db.String(50), index=True, unique=False)
     password_hash = db.Column(db.String(128), nullable=False)
