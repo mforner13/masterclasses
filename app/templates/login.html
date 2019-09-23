@@ -1,0 +1,25 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+        <h1 class="govuk-heading-l">Login</h1>
+        <form class="govuk-form-group" action="/login" method="post">
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="email-address">
+                    Email address
+                </label>
+                <input class="govuk-input govuk-input--width-20" id="email-address" name="email-address" type="text">
+                <br><br>
+                <label class="govuk-label" for="password">
+                    Password
+                </label>
+                <input class="govuk-input govuk-input--width-20" id="password" name="password" type="password">
+            </div>
+            <div class="input submit">
+                <input type="submit" value="Login" class="govuk-button">
+            </div>
+        </form>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Masterclasses</title>
+        {% else %}
+        <title>Welcome to Masterclasses</title>
+         {% endif %}
+        <link rel="stylesheet" href="static/stylesheets/govuk-frontend-3.2.0.min.css">
+    </head>
+    <header class="govuk-header " role="banner" data-module="govuk-header">
+        <div class="govuk-header__container govuk-width-container">
+            <div class="govuk-header__logo">
+              <a href="#" class="govuk-header__link govuk-header__link--homepage">
+                <span class="govuk-header__logotype">
+                  <span class="govuk-header__logotype-text">
+                    Masterclasses
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div align="right" class="govuk-header__content">
+              <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+              <nav>
+                <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
+                  <li class="govuk-header__navigation-item">
+                    <a class="govuk-header__link" href="#2">
+                      Upcoming
+                    </a>
+                  </li>
+                  <li class="govuk-header__navigation-item">
+                    <a class="govuk-header__link" href="#3">
+                      My masterclasses
+                    </a>
+                  </li>
+                  <li class="govuk-header__navigation-item">
+                    <a class="govuk-header__link" href="#4">
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </header>
+        {% block content %}{% endblock %}
+        <script src="static/js/javascript/govuk-frontend-3.2.0.min.js"></script>
+        <script>window.GOVUKFrontend.initAll()</script>
+</html>
