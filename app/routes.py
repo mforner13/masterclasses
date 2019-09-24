@@ -8,7 +8,8 @@ from app import app
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Home', user=User)
+    masterclasses = Masterclass.query.all()
+    return render_template('index.html', title='Home', user=User, masterclasses=masterclasses)
 
 
 @app.route('/login', methods=['GET', 'POST'])
