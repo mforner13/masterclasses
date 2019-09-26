@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_user, login_required, logout_user
 from app.models import *
 from app import app
 
@@ -27,4 +27,9 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign In')
 
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
