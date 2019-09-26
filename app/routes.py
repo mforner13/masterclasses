@@ -8,7 +8,7 @@ from app import app
 @app.route('/index')
 @login_required
 def index():
-    masterclasses = Masterclass.query.all()
+    masterclasses = Masterclass.query.order_by(Masterclass.timestamp.asc()).all()
     return render_template('index.html', title='Home', user=User, masterclasses=masterclasses)
 
 
