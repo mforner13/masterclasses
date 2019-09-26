@@ -8,11 +8,11 @@
         {% for masterclass in masterclasses %}
 
         <div class="app-content-panel">
-            <h2 class="govuk-heading-m">{{ masterclass.content.name }}</h2>
+            <h2 class="govuk-heading-m"><a class="govuk-link--no-visited-state" href="#">{{ masterclass.content.name }}</a></h2>
             <table>
                 <tr class="govuk-table__row">
                     <td class="govuk-caption-m govuk-!-padding-right-6">Location</td>
-                    <td class="govuk-body">{{ masterclass.location.building }}, {{ masterclass.location.town_or_city }} {{masterclass.location.postcode }}</td>
+                    <td class="govuk-body">{{ masterclass.location.building }}, {{ masterclass.location.town_or_city }}, {{masterclass.location.postcode }}</td>
                 </tr>
                 <tr>
                     <td class="govuk-caption-m govuk-!-padding-right-6">Date</td>
