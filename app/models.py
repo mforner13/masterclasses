@@ -31,6 +31,9 @@ class MasterclassContent(db.Model):
     description = db.Column(db.String(500))
     masterclass_instances = db.relationship('Masterclass', backref='content', lazy='dynamic')
 
+    def __repr__(self):
+        return '<MasterclassContent {}>'.format(self.name)
+
 
 class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,6 +43,9 @@ class Location(db.Model):
     town_or_city = db.Column(db.String(50), index=True)
     postcode = db.Column(db.String(8), index=True)  # A postcode in the UK can't have more than 8 characters inc. space
     masterclasses = db.relationship('Masterclass', backref='location', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Location {}>'.format(self.building)
 
 
 class Masterclass(db.Model):
