@@ -1,11 +1,11 @@
-<html>
+<!DOCTYPE html>
     <head>
         {% if title %}
         <title>{{ title }} - Masterclasses</title>
         {% else %}
         <title>Welcome to Masterclasses</title>
          {% endif %}
-        <link rel="stylesheet" href="static/stylesheets/govuk-frontend-3.2.0.min.css">
+        <link rel="stylesheet" href="/static/stylesheets/govuk-frontend-3.2.0.min.css">
     </head>
     <header class="govuk-header " role="banner" data-module="govuk-header">
         <div class="govuk-header__container govuk-width-container">
@@ -48,7 +48,9 @@
             </div>
           </div>
         </header>
-        {% block content %}{% endblock %}
+        {% block content %}
+
+    {% endblock %}
         <script src="static/js/javascript/govuk-frontend-3.2.0.min.js"></script>
         <script>window.GOVUKFrontend.initAll()</script>
 </html>
