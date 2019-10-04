@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+        <h1 class="govuk-heading-l">{{ masterclass_data.content.name }}</h1>
+        {{ masterclass_data }}
+    </main>
+</div>
+
+{% endblock %}

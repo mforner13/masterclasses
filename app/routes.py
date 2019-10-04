@@ -5,7 +5,7 @@ from app import app
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['GET'])
 @login_required
 def index():
     masterclasses = Masterclass.query.order_by(Masterclass.timestamp.asc()).all()
@@ -32,4 +32,10 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@login_required
+@app.route('/masterclass/<masterclass_id>', methods=['GET'])
+def masterclass_profile(masterclass_id):
+    masterclass = Masterclass.query.get(masterclass_id)
+    return render_template('masterclass-profile.html', masterclass_data=masterclass)
 
