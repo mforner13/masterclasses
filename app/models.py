@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):   # User inherits from db.Model, a base class f
     def __repr__(self):
         return '<User {} {}>'.format(self.first_name, self.last_name)
 
-    def set_password(self, password):
+    def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
