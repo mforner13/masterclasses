@@ -27,15 +27,32 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign In')
 
-
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 @login_required
-@app.route('/masterclass/<masterclass_id>', methods=['GET'])
+@app.route('/masterclass/<masterclass_id>', methods=['GET', 'POST'])
 def masterclass_profile(masterclass_id):
+
+    if request.method == 'POST':
+        user = current_user
+        new_attendee = MasterclassAttendee(attendee_id = current_user.id, masterclass_id = masterclass_id) 
+        db.session.add(new_attendee) 
+        db.session.commit()
+        return redirect(url_for('signup_confirmation'))
     masterclass = Masterclass.query.get(masterclass_id)
     return render_template('masterclass-profile.html', masterclass_data=masterclass)
 
+@login_required
+@app.route('/signup-confirmation', methods=['GET'])
+def signup_confirmation():
+    return render_template('signup-confirmation.html')
+
+@login_required
+@app.route('/my_masterclasses', methods=['GET'])
+def my_masterclasses():
+    user = current_user
+    booked_masterclasses = user.booked_masterclasses
+    return render_template('my-masterclasses.html')
