@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+        <h1 class="govuk-heading-l">My masterclasses</h1>
+
+        {% for masterclass in booked_masterclasses %}
+
+        <div class="app-content-panel">
+            <h2 class="govuk-heading-m"><a class="govuk-link--no-visited-state" href="{{ url_for('masterclass_profile', masterclass_id=masterclass.id) }}">{{ masterclass.content.name }}</a></h2>
+            <table>
+                <tr class="govuk-table__row">
+                    <td class="govuk-caption-m govuk-!-padding-right-6">Location</td>
+                    <td class="govuk-body">{{ masterclass.location.building }}, {{ masterclass.location.town_or_city }}, {{masterclass.location.postcode }}</td>
+                </tr>
+                <tr>
+                    <td class="govuk-caption-m govuk-!-padding-right-6">Date</td>
+                    <td class="govuk-body">{{ masterclass.timestamp.strftime("%A") }} {{ masterclass.timestamp.day }} {{ masterclass.timestamp.strftime("%B") }} {{ masterclass.timestamp.year }}</td>
+                </tr>
+                <tr>
+                    <td class="govuk-caption-m govuk-!-padding-right-6">Time</td>
+                    <td class="govuk-body">{{ masterclass.timestamp.strftime("%X") }}</td>
+                </tr>
+                <tr>
+                    <td class="govuk-caption-m govuk-!-padding-right-6">Instructor</td>
+                    <td class="govuk-body">{{ masterclass.instructor.first_name }} {{ masterclass.instructor.last_name }}</td>
+                </tr>
+            </table>
+        </div>
+        <hr> {% endfor %}
+    </main>
+</div>
+
+{% endblock %}
