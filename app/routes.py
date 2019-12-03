@@ -36,12 +36,14 @@ def logout():
 @app.route('/masterclass/<masterclass_id>', methods=['GET', 'POST'])
 def masterclass_profile(masterclass_id):
     masterclass = Masterclass.query.get(masterclass_id)
+    already_attendee = bool(MasterclassAttendee.query.filter_by(masterclass_id = masterclass_id, attendee_id = current_user.id).first())
+    # if already_attendee:
     if request.method == 'POST':
-        new_attendee = MasterclassAttendee(attendee_id = current_user.id, masterclass_id = masterclass_id) 
-        db.session.add(new_attendee) 
-        db.session.commit()
-        return redirect(url_for('signup_confirmation', masterclass_id=masterclass_id))
-    return render_template('masterclass-profile.html', masterclass_data=masterclass)
+            new_attendee = MasterclassAttendee(attendee_id = current_user.id, masterclass_id = masterclass_id) 
+            db.session.add(new_attendee) 
+            db.session.commit()
+            return redirect(url_for('signup_confirmation', masterclass_id=masterclass_id))
+    return render_template('masterclass-profile.html', masterclass_data=masterclass, already_attendee=already_attendee)
 
 @login_required
 @app.route('/signup-confirmation', methods=['GET'])

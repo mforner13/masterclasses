@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
+
+
 <div class="govuk-width-container">
     <main class="govuk-main-wrapper">
         <div class="govuk-grid-column-two-thirds">
@@ -16,7 +18,14 @@
                     <h2 class="govuk-heading-m">Instructor</h2>
                     <p class="govuk-body">{{ masterclass_data.instructor.first_name }} {{ masterclass_data.instructor.last_name }}</p>
                 </div>
-                <button type="submit" class="govuk-button" data-module="govuk-button">
+                {% if already_attendee %}
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title">
+                      You're already attending this masterclass
+                    </h1>
+                </div>
+                {% endif %}
+                <button id ="signup-button" type="submit" class="govuk-button" data-module="govuk-button">
                         Sign up
                 </button>
             </form> 
@@ -24,5 +33,13 @@
 
     </main>
 </div>
+
+{% if already_attendee %}
+    <script>
+        const signUpButton = document.getElementById("signup-button");
+        signUpButton.style.display="None";
+    </script>
+
+{% endif %}
 
 {% endblock %}
