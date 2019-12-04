@@ -36,8 +36,7 @@ def logout():
 @app.route('/masterclass/<masterclass_id>', methods=['GET', 'POST'])
 def masterclass_profile(masterclass_id):
     masterclass = Masterclass.query.get(masterclass_id)
-    already_attendee = bool(MasterclassAttendee.query.filter_by(masterclass_id = masterclass_id, attendee_id = current_user.id).first())
-    # if already_attendee:
+    already_attendee = MasterclassAttendee.is_attendee(current_user.id, masterclass_id)
     if request.method == 'POST':
             new_attendee = MasterclassAttendee(attendee_id = current_user.id, masterclass_id = masterclass_id) 
             db.session.add(new_attendee) 
