@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              Sign up successful  
+            </h1>
+            <div class="govuk-panel__body">
+              You're going to <br><strong>{{ masterclass.content.name }}</strong>
+            </div>
+          </div>
+          <p class='govuk-body'>You will receive an email confirmation shortly containing the details for the masterclass.</p>
+          <a class='govuk-link' href="{{ url_for('my_masterclasses') }}">View your masterclasses</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+{% endblock %}

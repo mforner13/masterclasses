@@ -54,9 +54,13 @@ class Masterclass(db.Model):
     masterclass_content_id = db.Column(db.Integer, db.ForeignKey('masterclass_content.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    
 
 class MasterclassAttendee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     attendee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     masterclass_id = db.Column(db.Integer, db.ForeignKey('masterclass.id'))
+
+    @staticmethod 
+    def is_attendee(attendee_id, masterclass_id):
+        return bool(MasterclassAttendee.query.filter_by(masterclass_id = masterclass_id, attendee_id = attendee_id).first())

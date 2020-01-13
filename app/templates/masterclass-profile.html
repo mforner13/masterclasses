@@ -1,23 +1,36 @@
 {% extends "base.html" %} {% block content %}
 
+
+
 <div class="govuk-width-container">
     <main class="govuk-main-wrapper">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">{{ masterclass_data.content.name }}</h1>
-            <div>
-                <h2 class="govuk-heading-m">Description</h2>
-                <p class="govuk-body">{{ masterclass_data.content.description }}</p>
-                <h2 class="govuk-heading-m">When</h2>
-                <p class="govuk-body">{{ masterclass_data.timestamp.strftime("%X") }} <br> {{ masterclass_data.timestamp.strftime("%A") }} {{ masterclass_data.timestamp.day }} {{ masterclass_data.timestamp.strftime("%B") }} {{ masterclass_data.timestamp.year }}</p>
-                <h2 class="govuk-heading-m">Location</h2>
-                <p class="govuk-body">{{ masterclass_data.location.building }}</p>
-                <p class="govuk-body">{{ masterclass_data.location.street_number }} {{ masterclass_data.location.street_name }}, {{ masterclass_data.location.town_or_city }}, {{ masterclass_data.location.postcode }}</p>
-                <h2 class="govuk-heading-m">Instructor</h2>
-                <p class="govuk-body">{{ masterclass_data.instructor.first_name }} {{ masterclass_data.instructor.last_name }}</p>
-            </div>
-            <button class="govuk-button" data-module="govuk-button">
-                    Sign up
-                  </button>
+            {% if already_attendee %}
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title">
+                      You're already attending this masterclass
+                    </h1>
+                </div>
+                {% endif %}
+            <form class='govuk-form-group' action='/masterclass/{{ masterclass_data.id }}' method="post">   
+                <div>
+                    <h2 class="govuk-heading-m">Description</h2>
+                    <p class="govuk-body">{{ masterclass_data.content.description }}</p>
+                    <h2 class="govuk-heading-m">When</h2>
+                    <p class="govuk-body">{{ masterclass_data.timestamp.strftime("%X") }} <br> {{ masterclass_data.timestamp.strftime("%A") }} {{ masterclass_data.timestamp.day }} {{ masterclass_data.timestamp.strftime("%B") }} {{ masterclass_data.timestamp.year }}</p>
+                    <h2 class="govuk-heading-m">Location</h2>
+                    <p class="govuk-body">{{ masterclass_data.location.building }}</p>
+                    <p class="govuk-body">{{ masterclass_data.location.street_number }} {{ masterclass_data.location.street_name }}, {{ masterclass_data.location.town_or_city }}, {{ masterclass_data.location.postcode }}</p>
+                    <h2 class="govuk-heading-m">Instructor</h2>
+                    <p class="govuk-body">{{ masterclass_data.instructor.first_name }} {{ masterclass_data.instructor.last_name }}</p>
+                </div>
+                {% if not already_attendee %}
+                <button id ="signup-button" type="submit" class="govuk-button" data-module="govuk-button">
+                        Sign up
+                </button>
+                {% endif %}
+            </form> 
         </div>
 
     </main>
