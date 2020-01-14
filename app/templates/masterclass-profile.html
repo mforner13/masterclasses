@@ -24,6 +24,8 @@
                     <p class="govuk-body">{{ masterclass_data.location.street_number }} {{ masterclass_data.location.street_name }}, {{ masterclass_data.location.town_or_city }}, {{ masterclass_data.location.postcode }}</p>
                     <h2 class="govuk-heading-m">Instructor</h2>
                     <p class="govuk-body">{{ masterclass_data.instructor.first_name }} {{ masterclass_data.instructor.last_name }}</p>
+                    <h2 class="govuk-heading-m">Places</h2>
+                    <p class="govuk-body">{{ masterclass_data.max_attendees }}</p>
                 </div>
                 {% if not already_attendee %}
                 <button id ="signup-button" type="submit" class="govuk-button" data-module="govuk-button">
