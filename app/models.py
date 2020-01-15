@@ -51,7 +51,7 @@ class Location(db.Model):
 class Masterclass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, index=True)
-    max_attendees = db.Column(db.Integer)
+    max_attendees = db.Column(db.Integer, nullable=False)
     masterclass_content_id = db.Column(db.Integer, db.ForeignKey('masterclass_content.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
