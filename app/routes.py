@@ -51,8 +51,15 @@ def signup_confirmation():
     return render_template('signup-confirmation.html', masterclass=masterclass)
 
 @login_required
-@app.route('/my_masterclasses', methods=['GET'])
+@app.route('/my_masterclasses', methods=['GET']) # Change to kebab case
 def my_masterclasses():
     user = current_user
     booked_masterclasses = user.booked_masterclasses
     return render_template('my-masterclasses.html')
+
+@login_required
+@app.route('/create-masterclass', methods=['GET', 'POST'])
+def create_masterclass():
+    user = current_user
+    # TODO logic for adding a new masterclass to db if it's a POST
+    return render_template('create-masterclass.html')
